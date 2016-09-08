@@ -1,5 +1,5 @@
 import {INotification, IObserver} from '../interfaces';
-import {Application} from '../Application';
+import {Application} from './Application';
 
 export class Model {
     public app: Application;

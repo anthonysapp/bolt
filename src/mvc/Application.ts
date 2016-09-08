@@ -1,5 +1,5 @@
-import {INotifier, INotification, IObserver} from './interfaces';
-import {Mediator, Model, Notification} from './mvc';
+import {INotifier, INotification, IObserver} from '../interfaces';
+import {Mediator, Model, Notification} from '../mvc';
 
 export class Application implements INotifier {
     // static constants

@@ -1,4 +1,4 @@
-import {Application} from '../Application';
+import {Application} from './Application';
 import {IObserver,INotification} from '../interfaces';
 
 export class Mediator implements IObserver {
