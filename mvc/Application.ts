@@ -21,8 +21,13 @@ export class Application implements INotifier {
             throw Error(Application.SINGLETON_MSG);
 
         Application.instance = this;
+
+        this.startup();
     }
 
+    public startup():void{
+        /// bootstrap this application
+    }
 
     public registerModel(model: Model): Model {
         if (this._models[model.name]) {
