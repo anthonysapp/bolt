@@ -21,11 +21,11 @@ export class Application implements INotifier {
             throw Error(Application.SINGLETON_MSG);
 
         Application.instance = this;
-
         this.startup();
     }
 
     public startup():void{
+        console.log('hi')
         /// bootstrap this application
     }
 
