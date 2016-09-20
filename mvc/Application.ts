@@ -19,15 +19,15 @@ export class Application implements INotifier {
     private static _hashQuery:any;
 
     constructor() {
-        if (Application.instance)
+        if (Application.instance){
             throw Error(Application.SINGLETON_MSG);
-
+        }
         Application.instance = this;
         this.startup();
     }
 
     public startup():void{
-        console.log('hi')
+        console.log('app startup')
         /// bootstrap this application
     }
 
