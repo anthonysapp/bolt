@@ -8,10 +8,12 @@ export class Application implements INotifier {
     // public 
 
     // protected        
-    protected _mediator: Mediator = null;
-    protected _models: { [name: string]: Model } = {};
-    protected _mediators: { [name: string]: Mediator } = {};
-    protected _observerMap: { [name: string]: IObserver[] } = {};
+    protected mediator: Mediator = null;
+    protected model: Model = null;
+    
+    protected models: { [name: string]: Model } = {};
+    protected mediators: { [name: string]: Mediator } = {};
+    protected observerMap: { [name: string]: IObserver[] } = {};
 
     //for debugging
     private static _hashQuery:any;
@@ -30,45 +32,45 @@ export class Application implements INotifier {
     }
 
     public registerModel(model: Model): Model {
-        if (this._models[model.name]) {
+        if (this.models[model.name]) {
             throw (new Error('Application:: a model with the name "' + model.name + '" already exists.'));
         }
-        this._models[model.name] = model;
+        this.models[model.name] = model;
         model.onRegister();
         return model;
     }
 
     public retrieveModel(modelName: string): Model {
-        return this._models[modelName] || null;
+        return this.models[modelName] || null;
     }
 
     public removeModel(modelToRemove: Model): void {
         let name = modelToRemove.name;
-        let model = this._models[name];
+        let model = this.models[name];
 
         if (!model)
             return;
 
         model.onRemoved();
-        delete this._models[name];
+        delete this.models[name];
     }
 
     public registerMediator(mediator: Mediator): void {
-        if (this._mediators[mediator.name]) {
+        if (this.mediators[mediator.name]) {
             throw (new Error('Application:: a mediator with the name "' + mediator.name + '" already exists.'));
         }
-        this._mediators[mediator.name] = mediator;
+        this.mediators[mediator.name] = mediator;
         this.registerObserver(mediator);
         mediator.onRegister();
     }
 
     public retrieveMediator(mediatorName: string): Mediator {
-        return this._mediators[mediatorName] || null;
+        return this.mediators[mediatorName] || null;
     }
 
     public removeMediator(mediatorToRemove: Mediator): void {
         let name = mediatorToRemove.name;
-        let mediator = this._mediators[name];
+        let mediator = this.mediators[name];
 
         if (!mediator)
             return;
@@ -78,15 +80,15 @@ export class Application implements INotifier {
         });
 
         mediator.onRemoved();
-        delete this._mediators[name];
+        delete this.mediators[name];
     }
 
     public registerObserver(observer: IObserver): void {
         observer.listNotificationInterests().forEach(notificationName => {
-            if (this._observerMap[notificationName] === undefined) {
-                this._observerMap[notificationName] = [];
+            if (this.observerMap[notificationName] === undefined) {
+                this.observerMap[notificationName] = [];
             }
-            this._observerMap[notificationName].push(observer);
+            this.observerMap[notificationName].push(observer);
         });
     }
 
@@ -102,7 +104,7 @@ export class Application implements INotifier {
             observer: IObserver = null,
             i: number = 0;
 
-        observers = this._observerMap[notificationName];
+        observers = this.observerMap[notificationName];
 
         //Find the observer for the notifyContext.
         i = observers.length;
@@ -119,7 +121,7 @@ export class Application implements INotifier {
          * notification key from the observer map.
          */
         if (observers.length == 0) {
-            delete this._observerMap[notificationName];
+            delete this.observerMap[notificationName];
         }
     }
 
@@ -136,7 +138,7 @@ export class Application implements INotifier {
         let observers: IObserver[] = null;
 
         const notificationName: string = notification.getName();
-        const observersRef: IObserver[] = this._observerMap[notificationName];
+        const observersRef: IObserver[] = this.observerMap[notificationName];
 
         if (observersRef) {
             // clone the array in case an observer gets removed while the notification is being sent
