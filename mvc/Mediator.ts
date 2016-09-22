@@ -7,7 +7,7 @@ export class Mediator implements IObserver {
     protected mediatorName: string = null;
     protected app: Application;
 
-    constructor(protected _viewComponent: any = null, autoReg: boolean = true, mediatorName: string = null) {
+    constructor(protected _viewComponent: any = null, mediatorName: string = null, autoReg: boolean = true) {
         this.app = Application.getInstance();
         this.mediatorName = mediatorName;
 
