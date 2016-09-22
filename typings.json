@@ -1,0 +1,9 @@
+{
+  "name": "bolt",
+  "dependencies": {
+    "bluebird": "registry:npm/bluebird#3.4.1+20160909132857"
+  },
+  "globalDependencies": {
+    "greensock": "registry:dt/greensock#1.15.1+20160316155526"
+  }
+}

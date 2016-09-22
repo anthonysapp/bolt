@@ -1,4 +1,0 @@
-[submodule "src/scripts/bolt"]
-	path = src/scripts/bolt
-	url = https://github.com/campjefferson/bolt.git
-	branch = master
