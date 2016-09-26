@@ -3,30 +3,33 @@ import {Mediator, Model, Notification} from '../mvc';
 
 export class Application implements INotifier {
     // static constants
-    protected static instance:Application = null;
+    protected static instance: Application = null;
     protected static SINGLETON_MSG = 'Application singleton already constructed!';
     // public 
 
     // protected        
     protected mediator: Mediator = null;
     protected model: Model = null;
-    
+
     protected models: { [name: string]: Model } = {};
     protected mediators: { [name: string]: Mediator } = {};
     protected observerMap: { [name: string]: IObserver[] } = {};
 
     //for debugging
-    private static _hashQuery:any;
+    private static _hashQuery: any;
 
-    constructor() {
-        if (Application.instance){
+    constructor(autoStart: boolean = true) {
+        if (Application.instance) {
             throw Error(Application.SINGLETON_MSG);
         }
         Application.instance = this;
-        this.startup();
+
+        if (autoStart) {
+            this.startup();
+        }
     }
 
-    public startup():void{
+    public startup(): void {
         console.log('app startup')
         /// bootstrap this application
     }
@@ -151,7 +154,7 @@ export class Application implements INotifier {
 
     private static _getHashQuery(): void {
         Application._hashQuery = {};
-        if (!window.location.hash || window.location.hash === undefined){
+        if (!window.location.hash || window.location.hash === undefined) {
             window.location.hash = '';
         }
         const hash = window.location.hash.substr(1, window.location.hash.length);
