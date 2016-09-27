@@ -1,20 +1,20 @@
 import Promise from "bluebird";
 export class Animator {
-    static to(target: any, duration: number, vars: { onComplete?: Function }): Promise<{}> {
+    static to(target: any, duration: number, vars: any): Promise<{}> {
         return new Promise(function (resolve, reject) {
             vars.onComplete = resolve;
             TweenMax.to(target, duration, vars);
         });
     }
 
-    static from(target: any, duration: number, vars: { onComplete?: Function, onCompleteParams?: any[] }): Promise<{}> {
+    static from(target: any, duration: number, vars: any): Promise<{}> {
         return new Promise(function (resolve, reject) {
             vars.onComplete = () => resolve(vars.onCompleteParams);
             TweenMax.from(target, duration, vars);
         });
     }
 
-    static fromTo(target: any, duration: number, fromVars: any, toVars: { onComplete?: Function, onCompleteParams?: any[] }): Promise<{}> {
+    static fromTo(target: any, duration: number, fromVars: any, toVars: any): Promise<{}> {
         return new Promise(function (resolve, reject) {
             toVars.onComplete = () => resolve(toVars.onCompleteParams);
             TweenMax.fromTo(target, duration, fromVars, toVars);
