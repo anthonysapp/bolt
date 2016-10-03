@@ -13,19 +13,17 @@ export class Time {
         let obj = { seconds: seconds },
             currentSeconds: number = seconds;
         return new Promise(function (resolve, reject) {
-            let timer = setInterval(() => {
-                currentSeconds--;
-                if (obj.seconds !== currentSeconds) {
-                    currentSeconds = obj.seconds;
-                    if (updateCallback) {
-                        updateCallback.apply(updateContext, [obj.seconds]);
+            TweenMax.to(obj, seconds, {
+                ease: Linear.easeNone,
+                seconds: 0, roundProps: "seconds", onUpdate: () => {
+                    if (obj.seconds !== currentSeconds) {
+                        currentSeconds = obj.seconds;
+                        if (updateCallback) {
+                            updateCallback.apply(updateContext, [obj.seconds]);
+                        }
                     }
-                }
-                if (currentSeconds === 0){
-                    clearInterval(timer);
-                    resolve();
-                }
-            }, 1000);
+                }, onComplete: resolve
+            });
         });
     }
 }
