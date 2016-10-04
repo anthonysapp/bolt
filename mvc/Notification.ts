@@ -1,22 +1,22 @@
 import {INotification} from '../interfaces';
 
 export class Notification implements INotification {
-    constructor(private _name: string, private _body: any = null) { }
+    constructor(private name: string, private body: any = null) { }
 
     public getName(): string {
-        return this._name;
+        return this.name;
     }
 
     public setBody(body: any): void {
-        this._body = body;
+        this.body = body;
     }
 
     public getBody(): any {
-        return this._body;
+        return this.body;
     }
 
     public destroy() {
-        this._body = null;
-        this._name = null;
+        this.body = null;
+        this.name = null;
     }
 }
