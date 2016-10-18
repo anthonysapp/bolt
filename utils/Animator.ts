@@ -1,5 +1,17 @@
-import Promise from "bluebird";
+/** Animator
+ * a wrapper for TWeenMax that returns promises
+ */
+// assumes: 
+// TweenMax is loaded somewhere globally
+// There is a Promise library loaded (Babel, Bluebird, etc)
 export class Animator {
+    static set(target: any, vars: any): Promise<{}> {
+        return new Promise(function (resolve, reject) {
+            vars.onComplete = resolve;
+            TweenMax.set(target, vars);
+        });
+    }
+
     static to(target: any, duration: number, vars: any): Promise<{}> {
         return new Promise(function (resolve, reject) {
             vars.onComplete = resolve;
